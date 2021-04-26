@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, TextInput } from 'react-native';
 import api from './components/Api';
 import Cep from './components/Cep';
 
@@ -8,8 +8,10 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state ={
-      cep:[]
-    }
+      cep:[],
+      cepDigitado: ''
+    };
+    this.carregar = this.carregar.bind(this);
   }
 
   async componentDidMount(){
@@ -19,10 +21,24 @@ class App extends Component {
     })
   }
 
+  async carregar(){
+    const response = await api.get('ws/'+this.state.cepDigitado+'/json/');
+    this.setState({
+      cep: response.data
+      
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
+        <TextInput 
+          placeholder="Digite Seu Cep..." 
+          onChangeText={
+            (value) => this.setState({cepDigitado: value})
+          }/>
         <Cep data={this.state.cep}/>
+        <Button title="Buscar" onPress={this.carregar}/>
       </View>
     );
   }

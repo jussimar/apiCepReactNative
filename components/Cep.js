@@ -10,7 +10,7 @@ class Cep extends Component{
                 <Text>RUA: {this.props.data.logradouro}</Text>
                 <Text>BAIRRO: {this.props.data.bairro}</Text>
                 <Text>CIDADE: {this.props.data.localidade}</Text>
-                <Text>ESTADO: {this.props.data.cep}</Text>
+                <Text>ESTADO: {this.props.data.uf}</Text>
             </>
         )
     }
